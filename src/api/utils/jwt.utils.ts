@@ -5,8 +5,7 @@ import { IUser } from '../models/user.model'
 
 /**
  * function to make the token
- * @param id 
- * @param email
+ * @params user
  * @returns token 
  */
 export const tokenSing = (user:IUser):string  => {
