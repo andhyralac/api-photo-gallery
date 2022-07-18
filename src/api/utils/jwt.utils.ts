@@ -1,4 +1,4 @@
-import jwt from 'jsonwebtoken'
+import jwt, { JsonWebTokenError, NotBeforeError, TokenExpiredError, verify } from 'jsonwebtoken'
 
 import config from '../../config/default'
 import { IUser } from '../models/user.model'
@@ -23,3 +23,25 @@ export const tokenSing = (user:IUser):string  => {
 
 
 
+interface IPaylod  {
+    _id: string;
+    email: string;
+    iat: number;
+    exp: number;
+}
+
+
+
+/**
+ * token verification function
+ * @param token
+ * @returns 
+ */
+export const verifyToken = async (token:string):Promise<IPaylod | null> => {
+    try {
+        return jwt.verify(token, config.JWT_SECRET) as IPaylod
+    } catch ( error ) {
+        console.log(error)
+        return null
+    }
+}
