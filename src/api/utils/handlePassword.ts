@@ -12,4 +12,15 @@ export const encrypt = (passwordPlain:string) => {
 
 
 
+/**
+ * 
+ * @param passwordPlain 
+ * @param hashPassword 
+ * @returns 
+ */
+export const compare = (passwordPlain:string, hashPassword:string) => {
+    return bcryptjs.compareSync(passwordPlain, hashPassword)
+}
+
+
 
