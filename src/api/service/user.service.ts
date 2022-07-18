@@ -15,3 +15,13 @@ export const createUser = async (user:IUser): Promise<IUser> => {
         throw new Error(error)
     }
 }
+
+
+
+export const findOneUser = async (object:Object):Promise<IUser | null> => {
+    try {
+        return await UserModel.findOne(object)
+    } catch (error: any) {
+        throw new Error(error)
+    }
+}
