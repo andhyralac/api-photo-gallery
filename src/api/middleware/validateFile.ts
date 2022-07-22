@@ -21,3 +21,26 @@ export const validateFileUpload = (req:Request, res:Response, next:NextFunction)
 
     next()
 }
+
+
+
+/**
+ * middleware to validate file extension
+ * @param allowedExtension 
+ * @returns 
+ */
+export const validateFileExtension =
+    (allowedExtension: string[]) =>
+        (req: Request, res: Response, next: NextFunction) => {
+
+            const { name } = req.files!.file as UploadedFile
+            const arrayName = name.split('.')
+            const extensionFile = arrayName[arrayName.length - 1]
+
+            if (!allowedExtension.includes(extensionFile)) {
+                handleErrorResponse(res, `INVALID EXTENSION - ${extensionFile}`, 400)
+                return
+            }
+
+            next()
+        }
