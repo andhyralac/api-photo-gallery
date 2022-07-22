@@ -29,9 +29,11 @@ export const deletePhoto = async (idPhoto:string): Promise<boolean> => {
             return false
         }
 
-        const deletedPhoto = await PhotoModel.deleteOne({ _id:photo!._id })
+        const photoUpdateStatus = await PhotoModel.findByIdAndUpdate({ _id:photo!._id }, { img: '', status: false }, { new: true})
 
-        return deletedPhoto.acknowledged
+        return (!photoUpdateStatus?.status) 
+            ? true 
+            : false
 
     } catch (error: any) {
         throw new Error(error)
